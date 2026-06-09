@@ -184,6 +184,10 @@ The fix is structural: bind the gate to a classification the agent did not solel
 
 The gate consults the manifest. The agent can argue, the agent can reason, the agent can produce a confidence score in any direction. The gate does not care. It evaluates against the declared class.
 
+![Figure 1: Action-Class Authority Reference Model](figures/fig1-action-class-authority-reference-model.png)
+
+*Figure 1. Action-Class Authority — Reference Model. The gate evaluates the declared class from the tool/action manifest (Panel 1). For multi-step chains, the worst-case class across the chain governs the gate (Panel 2). Source: OWASP AISVS C9.2.6 + C9.2.7 (proposed for 1.01).*
+
 ### Where the manifest lives
 
 A non-exhaustive list of valid storage locations:
