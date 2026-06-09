@@ -11,6 +11,12 @@
 
 ---
 
+![Action-Class Authority Reference Model](figures/fig1-action-class-authority-reference-model.png)
+
+*Figure 1. Action-Class Authority — Reference Model. The gate evaluates the declared class from the tool/action manifest (Panel 1). For multi-step chains, the worst-case class across the chain governs the gate (Panel 2). Source: OWASP AISVS C9.2.6 + C9.2.7 (proposed for 1.01).*
+
+---
+
 ## What this is
 
 A practitioner reference for **what an AI agent is allowed to do without a human in the loop**, structured on the axis of **reversibility** rather than risk. Covers the four-class reversibility taxonomy, manifest-declared classification, the worst-case chain rule, and gate decisions per class. Anchored to OWASP AISVS C9.2.6 and C9.2.7 (proposed for 1.01, merged into main 2026-05-27).
