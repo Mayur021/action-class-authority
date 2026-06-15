@@ -6,7 +6,6 @@
 
 **Author:** Mayur Agnihotri
 *Senior Information Security Specialist, StraightArc Technologies Pvt. Ltd.*
-*Head of Threat Research, SecSphere SOC / SkyVirtRange*
 *OWASP AISVS Contributor · CSA IAM Working Group Reviewer*
 
 **License:** Creative Commons Attribution 4.0 International (CC BY 4.0)
@@ -15,7 +14,7 @@
 
 ## Abstract
 
-When an AI agent takes an action, the question that determines whether the system stays safe is not whether the agent intended well, but whether the agent was *allowed* to take that action without a human in the loop. Existing controls answer this question by asking the agent itself — a self-classification pattern that prompt injection moves directly through. This paper proposes a different axis: classify each action by **reversibility** (the mechanism by which the action can be undone), declare the classification in the tool or action manifest at design time, and bind the enforcement gate to that declaration rather than to anything the agent produces at runtime. Four classes — read-only, reversible, external-reversible, and irreversible — cover the operational surface. A worst-case chain rule extends the model to multi-step composed sequences, where the chain's worst-case class governs the gate from the start. The architecture is anchored in OWASP AISVS C9.2.6 and C9.2.7 (proposed for 1.01, merged into main on 2026-05-27) and is compatible with the policy-engine enforcement requirement codified in AISVS C9.6.4. This reference is a verification-side companion to those standards.
+When an AI agent takes an action, the question that determines whether the system stays safe is not whether the agent intended well, but whether the agent was *allowed* to take that action without a human in the loop. Existing controls answer this question by asking the agent itself — a self-classification pattern that prompt injection moves directly through. This paper proposes a different axis: classify each action by **reversibility** (the mechanism by which the action can be undone), declare the classification in the tool or action manifest at design time, and bind the enforcement gate to that declaration rather than to anything the agent produces at runtime. Four classes — read-only, reversible, external-reversible, and irreversible — cover the operational surface. A worst-case chain rule extends the model to multi-step composed sequences, where the chain's worst-case class governs the gate from the start. The architecture is anchored in OWASP AISVS C9.2.6 and C9.2.7 (research-chapter material, merged into the research directory 2026-05-27, proposed for v1.01 inclusion) and is compatible with the policy-engine enforcement requirements codified in the AISVS v1.0 main C9.5 Agent Authorization, Delegation, and Continuous Enforcement section (renumbered from C9.6 in the 2026-06-15 editorial cleanup). This reference is a verification-side companion to those standards.
 
 ---
 
@@ -36,7 +35,7 @@ When an AI agent takes an action, the question that determines whether the syste
 
 **The architectural floor.** The classification must live in the tool or action manifest — declared at design time, not derived from the agent's runtime output. The gate consults the manifest. The agent can argue, the agent can reason, the agent can produce a confidence score. The gate does not care. It evaluates against the declared class. This is what AISVS C9.2.6 says, and it is what makes the model resistant to prompt injection.
 
-**The standards-track anchor.** OWASP AISVS C9.2.6 (manifest-declared reversibility classification, evaluated by gate from declaration not from agent output) and C9.2.7 (blast radius as independent axis, raise-only, worst-case-governs across chains) were merged into AISVS main on 2026-05-27 and are proposed for 1.01. The verification-side architecture described in this paper is what those two requirements verify.
+**The standards-track anchor.** OWASP AISVS C9.2.6 (manifest-declared reversibility classification, evaluated by gate from declaration not from agent output) and C9.2.7 (blast radius as independent axis, raise-only, worst-case-governs across chains) are research-chapter material merged into the AISVS research directory on 2026-05-27, proposed for v1.01 inclusion. The verification-side architecture described in this paper is what those two requirements verify.
 
 **The DFIR pairing.** Chain of custody is exactly this kind of declaration: a fixed, externally-verifiable record that the system can check against, that the actors in the system cannot rewrite. Action-class authority for AI agents is the same idea, applied one layer up.
 
@@ -186,7 +185,7 @@ The gate consults the manifest. The agent can argue, the agent can reason, the a
 
 ![Figure 1: Action-Class Authority Reference Model](figures/fig1-action-class-authority-reference-model.png)
 
-*Figure 1. Action-Class Authority — Reference Model. The gate evaluates the declared class from the tool/action manifest (Panel 1). For multi-step chains, the worst-case class across the chain governs the gate (Panel 2). Source: OWASP AISVS C9.2.6 + C9.2.7 (proposed for 1.01).*
+*Figure 1. Action-Class Authority — Reference Model. The gate evaluates the declared class from the tool/action manifest (Panel 1). For multi-step chains, the worst-case class across the chain governs the gate (Panel 2). Source: OWASP AISVS C9.2.6 + C9.2.7 (research chapter, merged June 2026).*
 
 ### Where the manifest lives
 
@@ -306,7 +305,7 @@ The evidence threshold is the difference between approval-as-rubber-stamp and ap
 
 ## Chapter 7. OWASP AISVS C9.2.6 and C9.2.7
 
-The verification-side standards artifact for the architecture described in Parts I and II is OWASP AISVS C9.2.6 and C9.2.7. Both requirements were merged into AISVS main on 2026-05-27 and are proposed for the 1.01 release. They live in the C9 chapter — Orchestration and Agents — under the C9.2 section on high-impact action approval.
+The verification-side standards artifact for the architecture described in Parts I and II is OWASP AISVS C9.2.6 and C9.2.7. Both requirements were merged into the AISVS research chapter on 2026-05-27. They live in the C9 chapter — Orchestration and Agents — under the C9.2 section on high-impact action approval.
 
 ### C9.2.6 (verbatim, Level 2)
 
@@ -330,13 +329,11 @@ The split is structural. C9.2.6 names the manifest-declared class as the gate's 
 
 C9.2.7 cannot be implemented without C9.2.6 (chain rule requires per-action class declarations to compose). C9.2.6 can be implemented without C9.2.7 (single-action manifest classification is meaningful even without chain composition). The dependency direction is one-way.
 
-### Companion control: C9.6.4 (Level 2)
+### Companion section: C9.5 (Agent Authorization, Delegation, and Continuous Enforcement)
 
-A closely related Level 2 requirement codified earlier in AISVS C9.6 specifies the enforcement boundary:
+A closely related section codified in the AISVS v1.0 main chapter specifies the enforcement boundary: access control decisions are enforced by a policy engine independent of the AI model's reasoning loop, with model output unable to override or bypass the access-control checks. The C9.5 section was renumbered from C9.6 in the 2026-06-15 editorial cleanup (PR #928 + #934); the present whitepaper cites it at section level rather than at sub-control level pending re-verification of the final sub-ID numbering against the 2026-06-24 v1.0 release.
 
-> Access control decisions are enforced by a policy engine, never by the AI model itself, and model-generated output cannot override or bypass access control checks.
-
-C9.6.4 names the enforcement side: a deterministic policy engine, outside the model's reasoning loop, that the model cannot persuade. C9.2.6 names the verification side: the input the policy engine evaluates is the manifest, not the agent's runtime output. Together they form a closed loop. C9.6.4 says the gate cannot be persuaded. C9.2.6 says the gate's input cannot be supplied by the persuader. C9.2.7 says the gate sees the worst-case composition before the agent starts the chain.
+C9.5 names the enforcement side: a deterministic policy engine, outside the model's reasoning loop, that the model cannot persuade. C9.2.6 names the verification side: the input the policy engine evaluates is the manifest, not the agent's runtime output. Together they form a closed loop. C9.5 says the gate cannot be persuaded. C9.2.6 says the gate's input cannot be supplied by the persuader. C9.2.7 says the gate sees the worst-case composition before the agent starts the chain.
 
 ## Chapter 8. Adjacent Standards: CSA NHI, PieterKas, SANS AISMM
 
@@ -344,9 +341,11 @@ Action-class authority sits in a standards-track territory that other working gr
 
 ### CSA IAM Working Group: Defining Non-Human Identity
 
-The CSA Identity and Access Management Working Group is under peer review for *Defining Non-Human Identity*, a paper that codifies the architectural properties of NHIs — the credentials, tokens, service accounts, and cryptographic identities that AI agents present when they act independently of human users.
+The CSA Identity and Access Management Working Group is closing editorial on *Defining Non-Human Identity v1.0*, a paper that codifies the architectural properties of NHIs — the credentials, tokens, service accounts, and cryptographic identities that AI agents present when they act independently of human users.
 
-A chain-level audit schema developed in joint peer-review work with Mallikarjunarao Sunke during the paper's review cycle proposes six properties that, taken together, make the chain attributable across composed agent actions. The six properties (joint contribution; Mallikarjunarao Sunke and the author of this paper) are:
+What landed verbatim in the v1.0 Working Draft is a four-element attribution language for NHI runtime decision records — *delegator, agent, intent, actions* — anchored at paragraph 222, which states that audit logs often lack complete attribution across these four elements. This four-element subset is the joint peer-review contribution with Mallikarjunarao Sunke that is in v1.0.
+
+A full six-property chain-audit formalization developed in the same joint peer-review work — extending the four elements with chain-id binding, originating-principal immutability as a schema property, and an audit telemetry surface — is *not* present verbatim in v1.0 and is targeted for v2.0 inclusion. The full six properties (joint contribution; Mallikarjunarao Sunke and the author of this paper) are recorded here for v2.0 reference:
 
 1. **Chain id** — A stable identifier issued at chain start that propagates across every action in the chain.
 2. **Declared worst-case action class at chain start** — The manifest-declared class for the worst-case action the chain can reach, bound at chain-id issuance, immutable through the chain.
@@ -355,7 +354,9 @@ A chain-level audit schema developed in joint peer-review work with Mallikarjuna
 5. **Originating principal** — The identity that initiated the chain, recorded once at chain start.
 6. **Immutability of the originating principal** — A cryptographic property that ensures the originating principal cannot be rewritten downstream of the chain's first commit.
 
-Property 2 is the action-class manifest, expressed at the chain level. Property 6 is what makes "the agent acting outside its scope" attributable across composed steps rather than stopping at one credential. The six together pair with AISVS C9.2.6 + C9.2.7 to form an end-to-end audit story: AISVS verifies that the gate read the declared class; the chain-level audit schema verifies that the declaration, the gate decision, and the originating principal survived every step the chain executed.
+Property 2 is the action-class manifest, expressed at the chain level. Property 6 is what makes "the agent acting outside its scope" attributable across composed steps rather than stopping at one credential. Once the six are formally adopted at v2.0, they will pair with AISVS C9.2.6 + C9.2.7 to form an end-to-end audit story: AISVS verifies that the gate read the declared class; the chain-level audit schema (v2.0 target) verifies that the declaration, the gate decision, and the originating principal survived every step the chain executed. In v1.0 today, the four-element attribution language at para 222 is the anchored subset; the rest is forthcoming.
+
+*Discipline note: CSA NHI v1.0 anchor reflects the four-element attribution language at para 222 of the Working Draft; the six-property formalization (chain-id binding, originating-principal immutability, audit telemetry surface) is targeted for v2.0 inclusion (joint contribution with Mallikarjunarao Sunke).*
 
 ### IETF-adjacent: PieterKas/agent2agent-auth-framework
 
@@ -376,10 +377,10 @@ The Stage 3–4 operational language describes the same architecture this paper 
 
 | Architecture primitive | OWASP AISVS | CSA IAM WG | PieterKas | SANS AISMM |
 |---|---|---|---|---|
-| Manifest-declared action class | C9.2.6 (verbatim) | NHI audit Property 2 | #114 (trigger axis) | Stage 3–4 (consequence-based gates) |
-| Worst-case chain rule | C9.2.7 (verbatim) | NHI audit chain-id binding | — | Stage 4 (intent validation) |
-| Originating principal immutability | C9.6.4 (companion) | NHI audit Property 6 (joint) | Chain-id propagation | Stage 3 (trace IDs across agent steps) |
-| Deterministic policy engine | C9.6.4 (verbatim) | — | — | Stage 4 (JIT access controls) |
+| Manifest-declared action class | C9.2.6 (verbatim) | NHI v1.0 four-element attribution at para 222 — "intent" element (joint Mallikarjunarao Sunke); NHI v2.0 hook Property 2 (manifest-declared worst-case class) | #114 (trigger axis) | Stage 3–4 (consequence-based gates) |
+| Worst-case chain rule | C9.2.7 (verbatim) | NHI v2.0 hook (chain-id binding deferred to v2.0; joint Mallikarjunarao Sunke) | — | Stage 4 (intent validation) |
+| Originating principal immutability | C9.5 section (companion; v1.0 main) | NHI v2.0 hook Property 6 — immutability-as-schema-property (joint Mallikarjunarao Sunke; not verbatim in v1.0) | Chain-id propagation | Stage 3 (trace IDs across agent steps) |
+| Deterministic policy engine | C9.5 section (v1.0 main) | — | — | Stage 4 (JIT access controls) |
 
 The cross-references are not coincidence. The same architectural floor is visible from each substrate. Each names it in its own vocabulary. Each requires the others to operationalize.
 
@@ -580,7 +581,7 @@ Common implementation patterns:
 - **Kubernetes admission controller** that gates the agent's outbound calls at the network layer, with the policy bundle keyed off manifest declarations.
 - **Service-mesh annotation enforcement** with the manifest declarations encoded as service annotations and the mesh's authorization policy reading them.
 
-The technology choice is operational. The architectural commitment is that the gate is *deterministic* (per C9.6.4), *outside the model's reasoning loop* (per C9.6.4), and *evaluating against the manifest* (per C9.2.6), with the *chain's worst case computed before chain start* (per C9.2.7).
+The technology choice is operational. The architectural commitment is that the gate is *deterministic* (per AISVS v1.0 main C9.5 Agent Authorization, Delegation, and Continuous Enforcement), *outside the model's reasoning loop* (per C9.5), and *evaluating against the manifest* (per C9.2.6, research-chapter material proposed for v1.01), with the *chain's worst case computed before chain start* (per C9.2.7, research-chapter material proposed for v1.01).
 
 ### Logging
 
@@ -641,7 +642,7 @@ A new or modified tool with no declared class is treated as low-class by default
 
 This paper is version 1.0 of a reference. Several extensions are open:
 
-**Joint chain-level audit schema specification.** The six-property schema referenced in Chapter 8 is joint peer-review work with Mallikarjunarao Sunke under CSA IAM Working Group review. A formal specification of the schema, including data types, audit-log integration, and cross-reference to AISVS C9.2.6+C9.2.7, is in development as a separate companion document.
+**Joint chain-level audit schema specification.** The six-property schema referenced in Chapter 8 is joint peer-review work with Mallikarjunarao Sunke under CSA IAM Working Group review. The four-element attribution subset (delegator / agent / intent / actions) landed verbatim at paragraph 222 of the CSA NHI v1.0 Working Draft; the full six-property formalization (chain-id binding, originating-principal immutability as a schema property, audit telemetry surface) is targeted for v2.0 inclusion. A formal specification of the full six-property schema, including data types, audit-log integration, and cross-reference to AISVS C9.2.6+C9.2.7, is in development as a separate companion document for v2.0 review.
 
 **AARM integration.** The CSA AARM Working Group's v2.0 specification (in active drafting as of June 2026) is the runtime-enforcement complement to AISVS verification. A cross-walk between AARM's runtime semantics and AISVS C9.2.6/C9.2.7 verification semantics would close the verification-enforcement loop at the standards-track level.
 
@@ -657,7 +658,7 @@ This paper is version 1.0 of a reference. Several extensions are open:
 
 ### Standards
 
-- **OWASP AISVS** — github.com/OWASP/AISVS — C9.2.6 + C9.2.7 (proposed for 1.01, merged 2026-05-27 into main, PR #822); C9.6.4 (Level 2, deterministic policy engine enforcement)
+- **OWASP AISVS** — github.com/OWASP/AISVS — C9.2.6 + C9.2.7 (research-chapter material merged 2026-05-27 via PR #822, proposed for v1.01 inclusion); C9.5 section (Agent Authorization, Delegation, and Continuous Enforcement; v1.0 main chapter, renumbered from C9.6 in the 2026-06-15 editorial cleanup PRs #928 + #934)
 - **OWASP LLM Top 10** — LLM06:2025 Excessive Agency
 - **MITRE ATLAS** — AML.T0099 AI Agent Tool Data Poisoning
 - **CSA Identity and Access Management Working Group** — *Defining Non-Human Identity* (under peer review)
@@ -696,24 +697,21 @@ This paper is version 1.0 of a reference. Several extensions are open:
 
 **Current roles:**
 
-- **Senior Information Security Specialist** at *StraightArc Technologies Pvt. Ltd.* (since 2020) — primary employer; AppSec, threat research, and security architecture across the StraightArc product portfolio.
-- **Head of Threat Research** at *SecSphere SOC* — leading the threat-research function for the AI SOC platform, including detection engineering, response automation, and adversarial-AI workstreams.
-- **Head of Threat Research** at *SkyVirtRange* — cyber-range exercise design, red-team scenario authoring, and DFIR-training workflows.
+- **Senior Information Security Specialist** at *StraightArc Technologies Pvt. Ltd.* — leading threat research at the intersection of AI security and security operations, with focus on agentic AI security, decision-rights architecture, and OT/ICS security.
 - **Board Member** at *SkyVirt* (since 2017).
 
 **Standards-track work:**
 
-- **OWASP AISVS Contributor** — authored the merged C9.2.6 and C9.2.7 requirements (proposed for 1.01) on manifest-declared reversibility classification and the worst-case chain rule for composed agent actions.
+- **OWASP AISVS Contributor** — authored the merged C9.2.6 and C9.2.7 requirements (research chapter, June 2026) on manifest-declared reversibility classification and the worst-case chain rule for composed agent actions.
 - **CSA IAM Working Group Reviewer** — review contributions on the *Defining Non-Human Identity* paper, including a joint chain-level audit schema with Mallikarjunarao Sunke.
 - **PieterKas/agent2agent-auth-framework Issue #114** — filed proposal for reversibility-graded CIBA step-up triggers.
 - **CoSAI WS4 collaborator** — Secure Design Agentic Systems Working Group, with substantive contributions to MCP security guidance.
-- **Former OWASP AppSec India Co-Leader** (2016–2020), bringing AppSec discipline into agentic-AI standards work.
 
-**Operational background:** Twelve-plus years across SOC engineering, OT/ICS security, DFIR, cyber-range exercise design, and threat research. Certifications include EC-Council C|EH, ICS/OT and operational-security training, and incident-analysis and risk credentials. His work centers on bringing the discipline that DFIR and forensic-readiness teams have practiced for decades into the agentic-AI security domain.
+**Current focus:** SOC engineering, OT/ICS security, DFIR, cyber-range exercise design, and threat research. Certifications include EC-Council C|EH, ICS/OT and operational-security training, and incident-analysis and risk credentials. The work centers on bringing the discipline that DFIR and forensic-readiness teams have practiced into the agentic-AI security domain.
 
 **Contact:** linkedin.com/in/mayur-agnihotri
 
-*Note: This whitepaper is the author's independent work and does not represent the official position of StraightArc Technologies, SecSphere SOC, SkyVirt, or any standards body referenced herein. All standards-track citations are to the publicly merged or proposed text as of the publication date.*
+*Note: This whitepaper is the author's independent work and does not represent the official position of StraightArc Technologies, SkyVirt, or any standards body referenced herein. All standards-track citations are to the publicly merged or proposed text as of the publication date.*
 
 ---
 
@@ -726,3 +724,9 @@ This paper is version 1.0 of a reference. Several extensions are open:
 **End of Whitepaper v1.0**
 
 *Approximate word count: 14,500. Approximate page count rendered: 28-30 pages.*
+
+---
+
+## Control-ID currency note (2026-06-15 errata pass)
+
+AISVS C9 references in this document use the post-2026-06-15 v1.0 main chapter inventory (PR #928 + #934 by Otto Sulin and Jim Manico). Earlier drafts of this whitepaper referenced C9.6.4 as a companion control; the cleanup renumbered C9.6 to C9.5 and removed C9.7 (Intent Verification and Constraint Gates) entirely. This document now cites the v1.0 main C9.5 section (Agent Authorization, Delegation, and Continuous Enforcement) at section level. If the chapter undergoes further changes before the 2026-06-24 v1.0 release, re-verify control IDs before reprinting.
