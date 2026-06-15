@@ -23,7 +23,7 @@ A practitioner reference for **what an AI agent is allowed to do without a human
 
 ## What this is not
 
-- Not a competing standard. The architectural anchors live in OWASP AISVS C9.2.6, C9.2.7, and C9.6.4. This document references them.
+- Not a competing standard. The architectural anchors live in OWASP AISVS C9.2.6 and C9.2.7 (research-chapter material, proposed for v1.01 inclusion) plus the C9.5 Agent Authorization, Delegation, and Continuous Enforcement section in v1.0 main (renumbered from C9.6 in the 2026-06-15 editorial cleanup). This document references them.
 - Not a vendor product specification. The framework is vendor-neutral by design.
 - Not a substitute for the chain-of-custody discipline that DFIR teams already practice. It is the same idea, applied one layer up.
 
@@ -72,6 +72,7 @@ Creative Commons Attribution 4.0 International (CC BY 4.0). See [LICENSE](LICENS
 | Version | Date | Notes |
 |---|---|---|
 | 1.0 | 2026-06-09 | Initial release |
+| 1.0 (in-place errata) | 2026-06-15 | Errata pass: C9.6.4 reference reframed as C9.5 section (OWASP AISVS post-2026-06-15 v1.0 main chapter inventory; PR #928 + #934 renumbered C9.6 → C9.5 and removed C9.7 + C9.2.4). Re-verify control IDs before reprinting; chapter may change further before the 2026-06-24 v1.0 release. |
 
 ## Contributing
 
