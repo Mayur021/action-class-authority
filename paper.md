@@ -340,7 +340,7 @@ Stating these as extensions keeps the standards anchor honest: C9.2.3, C9.2.4, a
 
 ### Companion: enforcement outside the model
 
-AISVS C9 also constrains tool and component execution so that enforcement sits outside the model's reasoning loop (C9.3 Component Isolation and Tool Authorization). Together with the reversibility controls this closes the loop: the gate's input is a trusted classification the agent did not supply (C9.2.3), the runtime enforces by that class (C9.2.4), the chain is governed by its worst case (C9.2.10), and the enforcement point sits outside the model the controls are meant to constrain. Re-verify the exact C9.3 sub-control numbering against the released v1.0 before citing at sub-control level.
+AISVS C9 also requires that access control decisions are enforced outside the model's reasoning loop (C9.5 Agent Authorization, Delegation, and Continuous Enforcement; C9.5.3 enforces decisions by application logic or a policy engine, never by the model). Together with the reversibility controls this closes the loop: the gate's input is a trusted classification the agent did not supply (C9.2.3), the runtime enforces by that class (C9.2.4), the chain is governed by its worst case (C9.2.10), and the enforcement point sits outside the model the controls are meant to constrain (C9.5.3). Re-verify the exact C9.5 sub-control numbering against the released v1.0 before citing at sub-control level.
 
 ## Chapter 8. Adjacent Standards: CSA NHI, PieterKas, SANS AISMM
 
@@ -387,7 +387,7 @@ The Stage 3–4 operational language describes the same architecture this paper 
 | Manifest-declared action class | C9.2.3 (verbatim) | NHI v1.0 four-element attribution at para 222 — "intent" element (joint Mallikarjunarao Sunke); NHI v2.0 hook Property 2 (manifest-declared worst-case class) | #114 (trigger axis) | Stage 3–4 (consequence-based gates) |
 | Worst-case chain rule | C9.2.10 (verbatim) | NHI v2.0 hook (chain-id binding deferred to v2.0; joint Mallikarjunarao Sunke) | — | Stage 4 (intent validation) |
 | Originating principal immutability | C9 chapter companion (no discrete v1.0 sub-ID) | NHI v2.0 hook Property 6 — immutability-as-schema-property (joint Mallikarjunarao Sunke; not verbatim in v1.0) | Chain-id propagation | Stage 3 (trace IDs across agent steps) |
-| Deterministic policy engine | C9.3 (Component Isolation and Tool Authorization) | — | — | Stage 4 (JIT access controls) |
+| Deterministic policy engine | C9.5.3 (decisions enforced by a policy engine, never by the model) | — | — | Stage 4 (JIT access controls) |
 
 The cross-references are not coincidence. The same architectural floor is visible from each substrate. Each names it in its own vocabulary. Each requires the others to operationalize.
 
@@ -588,7 +588,7 @@ Common implementation patterns:
 - **Kubernetes admission controller** that gates the agent's outbound calls at the network layer, with the policy bundle keyed off manifest declarations.
 - **Service-mesh annotation enforcement** with the manifest declarations encoded as service annotations and the mesh's authorization policy reading them.
 
-The technology choice is operational. The architectural commitment is that the gate is *deterministic* and *outside the model's reasoning loop* (consistent with AISVS v1.0 C9.3 Component Isolation and Tool Authorization), *evaluating against the manifest* (this author's reading of C9.2.3's trusted classification), with the *chain's worst case computed before chain start* (per C9.2.10).
+The technology choice is operational. The architectural commitment is that the gate is *deterministic* and *outside the model's reasoning loop* (consistent with AISVS v1.0 C9.5.3, access control decisions enforced by a policy engine, never by the model), *evaluating against the manifest* (this author's reading of C9.2.3's trusted classification), with the *chain's worst case computed before chain start* (per C9.2.10).
 
 ### Logging
 
@@ -665,7 +665,7 @@ This paper is version 1.0 of a reference. Several extensions are open:
 
 ### Standards
 
-- **OWASP AISVS** — github.com/OWASP/AISVS — C9.2.3, C9.2.4, and C9.2.10 (shipped in v1.0, Orchestration and Agentic Security chapter); C9.3 Component Isolation and Tool Authorization (companion)
+- **OWASP AISVS** — github.com/OWASP/AISVS — C9.2.3, C9.2.4, and C9.2.10 (shipped in v1.0, Orchestration and Agentic Security chapter); C9.5 Agent Authorization, Delegation, and Continuous Enforcement (enforcement-boundary companion; C9.5.3 enforces decisions outside the model)
 - **OWASP LLM Top 10** — LLM06:2025 Excessive Agency
 - **MITRE ATLAS** — AML.T0099 AI Agent Tool Data Poisoning
 - **CSA Identity and Access Management Working Group** — *Defining Non-Human Identity* (under peer review)
@@ -736,4 +736,4 @@ This paper is version 1.0 of a reference. Several extensions are open:
 
 ## Control-ID currency note (2026-06-15 errata pass)
 
-AISVS C9 references in this document are to the released v1.0 (Orchestration and Agentic Security chapter): C9.2.3, C9.2.4, and C9.2.10 (the reversibility controls this paper anchors on), C9.2.2 and C9.2.8 (approval parameter display and cryptographic binding), and C9.3 (Component Isolation and Tool Authorization). Verify the exact sub-control numbering against the released v1.0 before reprinting.
+AISVS C9 references in this document are to the released v1.0 (Orchestration and Agentic Security chapter): C9.2.3, C9.2.4, and C9.2.10 (the reversibility controls this paper anchors on), C9.2.2 and C9.2.8 (approval parameter display and cryptographic binding), and C9.5 (Agent Authorization, Delegation, and Continuous Enforcement; C9.5.3 enforces decisions outside the model). Verify the exact sub-control numbering against the released v1.0 before reprinting.

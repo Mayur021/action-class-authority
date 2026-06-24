@@ -27,7 +27,7 @@ A practitioner reference for **what an AI agent is allowed to do without a human
 
 ## What this is not
 
-- Not a competing standard. The architectural anchors live in OWASP AISVS v1.0 C9.2.3, C9.2.4, and C9.2.10, with the C9.3 Component Isolation and Tool Authorization controls as the enforcement-boundary companion. This document references them.
+- Not a competing standard. The architectural anchors live in OWASP AISVS v1.0 C9.2.3, C9.2.4, and C9.2.10, with C9.5 Agent Authorization, Delegation, and Continuous Enforcement (C9.5.3 enforces decisions outside the model) as the enforcement-boundary companion. This document references them.
 - Not a vendor product specification. The framework is vendor-neutral by design.
 - Not a substitute for the chain-of-custody discipline that DFIR teams already practice. It is the same idea, applied one layer up.
 
@@ -76,7 +76,7 @@ Creative Commons Attribution 4.0 International (CC BY 4.0). See [LICENSE](LICENS
 | Version | Date | Notes |
 |---|---|---|
 | 1.0 | 2026-06-09 | Initial release |
-| 1.0 (in-place errata) | 2026-06-24 | AISVS citations aligned to the released v1.0: reversibility controls cited as C9.2.3 / C9.2.4 / C9.2.10 (Orchestration and Agentic Security chapter), approval binding as C9.2.2 / C9.2.8, enforcement boundary as C9.3. Manifest-declaration, the independent blast-radius axis, and the fail-closed default are marked as the author's extensions, not shipped controls. |
+| 1.0 (in-place errata) | 2026-06-24 | AISVS citations aligned to the released v1.0: reversibility controls cited as C9.2.3 / C9.2.4 / C9.2.10 (Orchestration and Agentic Security chapter), approval binding as C9.2.2 / C9.2.8, enforcement boundary as C9.5 (C9.5.3). Manifest-declaration, the independent blast-radius axis, and the fail-closed default are marked as the author's extensions, not shipped controls. |
 
 ## Contributing
 
