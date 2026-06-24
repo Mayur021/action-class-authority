@@ -11,19 +11,23 @@
 
 ---
 
+> **AISVS v1.0 mapping (updated 2026-06-24)**: The AISVS controls referenced here shipped in OWASP AISVS v1.0 (released June 2026), in the C9 Orchestration and Agentic Security chapter: C9.2.3 (a trusted reversibility classification; Level 2), C9.2.4 (runtime enforcement by that class; Level 2), and C9.2.10 (worst-case class across a multi-step or multi-agent chain; Level 3). v1.0 shipped a leaner set than the architecture this paper develops: the manifest-declaration mechanism, blast radius as an independent axis, and the fail-closed default for unclassified tools are this author's architectural extensions, not separate AISVS controls. Chapter 7 of the paper marks the boundary.
+
+---
+
 ![Action-Class Authority Reference Model](figures/fig1-action-class-authority-reference-model.png)
 
-*Figure 1. Action-Class Authority — Reference Model. The gate evaluates the declared class from the tool/action manifest (Panel 1). For multi-step chains, the worst-case class across the chain governs the gate (Panel 2). Source: OWASP AISVS C9.2.6 + C9.2.7 (proposed for 1.01).*
+*Figure 1. Action-Class Authority — Reference Model. The gate evaluates the declared class from the tool/action manifest (Panel 1). For multi-step chains, the worst-case class across the chain governs the gate (Panel 2). Source: OWASP AISVS v1.0 (C9.2.3, C9.2.4, C9.2.10).*
 
 ---
 
 ## What this is
 
-A practitioner reference for **what an AI agent is allowed to do without a human in the loop**, structured on the axis of **reversibility** rather than risk. Covers the four-class reversibility taxonomy, manifest-declared classification, the worst-case chain rule, and gate decisions per class. Anchored to OWASP AISVS C9.2.6 and C9.2.7 (proposed for 1.01, merged into main 2026-05-27).
+A practitioner reference for **what an AI agent is allowed to do without a human in the loop**, structured on the axis of **reversibility** rather than risk. Covers the four-class reversibility taxonomy, manifest-declared classification, the worst-case chain rule, and gate decisions per class. Anchored to OWASP AISVS C9.2.3, C9.2.4, and C9.2.10 (shipped in v1.0).
 
 ## What this is not
 
-- Not a competing standard. The architectural anchors live in OWASP AISVS C9.2.6 and C9.2.7 (research-chapter material, proposed for v1.01 inclusion) plus the C9.5 Agent Authorization, Delegation, and Continuous Enforcement section in v1.0 main (renumbered from C9.6 in the 2026-06-15 editorial cleanup). This document references them.
+- Not a competing standard. The architectural anchors live in OWASP AISVS v1.0 C9.2.3, C9.2.4, and C9.2.10, with the C9.3 Component Isolation and Tool Authorization controls as the enforcement-boundary companion. This document references them.
 - Not a vendor product specification. The framework is vendor-neutral by design.
 - Not a substitute for the chain-of-custody discipline that DFIR teams already practice. It is the same idea, applied one layer up.
 
@@ -72,7 +76,7 @@ Creative Commons Attribution 4.0 International (CC BY 4.0). See [LICENSE](LICENS
 | Version | Date | Notes |
 |---|---|---|
 | 1.0 | 2026-06-09 | Initial release |
-| 1.0 (in-place errata) | 2026-06-15 | Errata pass: C9.6.4 reference reframed as C9.5 section (OWASP AISVS post-2026-06-15 v1.0 main chapter inventory; PR #928 + #934 renumbered C9.6 → C9.5 and removed C9.7 + C9.2.4). Re-verify control IDs before reprinting; chapter may change further before the 2026-06-24 v1.0 release. |
+| 1.0 (in-place errata) | 2026-06-24 | AISVS citations aligned to the released v1.0: reversibility controls cited as C9.2.3 / C9.2.4 / C9.2.10 (Orchestration and Agentic Security chapter), approval binding as C9.2.2 / C9.2.8, enforcement boundary as C9.3. Manifest-declaration, the independent blast-radius axis, and the fail-closed default are marked as the author's extensions, not shipped controls. |
 
 ## Contributing
 
