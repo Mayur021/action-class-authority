@@ -31,7 +31,6 @@ agentic AI security · action-class authority · reversibility-graded authority 
 Mayur Agnihotri, "Action-Class Authority: Why the Impossibility of Complete Guardrails Forces a Reversibility-Graded Verification Layer for Agentic AI," preprint, 2026. DOI: 10.5281/zenodo.21305381
 ```
 
-A DOI will be added here once the repository is archived via Zenodo. See `CITATION.cff`.
 
 ## License
 
