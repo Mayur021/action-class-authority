@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21305381.svg)](https://doi.org/10.5281/zenodo.21305381)
 # Action-Class Authority
 
 **Why the Impossibility of Complete Guardrails Forces a Reversibility-Graded Verification Layer for Agentic AI**
