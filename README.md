@@ -1,96 +1,38 @@
-# Action-Class Authority for AI Agents
+# Action-Class Authority
 
-**A Verification-Side Reference**
+**Why the Impossibility of Complete Guardrails Forces a Reversibility-Graded Verification Layer for Agentic AI**
 
-**Version 1.0** — Published 2026-06-09
+Mayur Agnihotri — StraightArc Technologies Pvt. Ltd., India
+ORCID: [0009-0007-0137-3780](https://orcid.org/0009-0007-0137-3780)
 
-**Author:** Mayur Agnihotri
-*Senior Information Security Specialist, StraightArc Technologies Pvt. Ltd.*
-*Head of Threat Research, SecSphere SOC / SkyVirtRange*
-*OWASP AISVS Contributor · CSA IAM Working Group Reviewer*
+> A version of the core pattern documentation in this work is under review at *IEEE Security & Privacy* magazine.
 
----
+## Abstract
 
-> **AISVS v1.0 mapping (updated 2026-06-24)**: The AISVS controls referenced here shipped in OWASP AISVS v1.0 (released June 2026), in the C9 Orchestration and Agentic Security chapter: C9.2.3 (a trusted reversibility classification; Level 2), C9.2.4 (runtime enforcement by that class; Level 2), and C9.2.10 (worst-case class across a multi-step or multi-agent chain; Level 3). v1.0 shipped a leaner set than the architecture this paper develops: the manifest-declaration mechanism, blast radius as an independent axis, and the fail-closed default for unclassified tools are this author's architectural extensions, not separate AISVS controls. Chapter 7 of the paper marks the boundary.
+Production agentic AI systems fail at one architectural seam: a prompt-injected, memory-poisoned, or supply-chain-compromised agent retains valid credentials and reasons over its own action authority. This paper argues that the response to that failure is not a stronger guardrail but a differently-placed one. A formal impossibility result establishes that no finite guardrail can be universally robust against adversarial input, and four independent empirical studies from May 2026 measure agent-reasoning compromise at rates high enough that any reasoning-based defense is statistically dominated. Read together, the formal and empirical results force a specific architecture. Because prevention cannot be completed and detection carries latency, the actions safe to leave under detection alone are exactly the reversible ones, while irreversible actions require authority established before execution by a mechanism the agent cannot rewrite. We call this pattern action-class authority: a verification layer that decouples a trusted, design-time reversibility classification from agent runtime reasoning, enforces it at a deterministic gate, and governs multi-step chains by the worst-case reversibility class present anywhere in the chain. We document the OWASP AISVS v1.0 verification requirements that operationalize this pattern (C9.2.3, C9.2.4, C9.2.10), analyze three canonical 2026 incidents, position the pattern against the 2026 literature on agent runtime enforcement and containment, and close with open research questions.
 
----
+## The paper
 
-![Action-Class Authority Reference Model](figures/fig1-action-class-authority-reference-model.png)
+- [`action-class-authority.pdf`](action-class-authority.pdf) — 10-page PDF
+- [`action-class-authority.tex`](action-class-authority.tex) — LaTeX source
 
-*Figure 1. Action-Class Authority — Reference Model. The gate evaluates the declared class from the tool/action manifest (Panel 1). For multi-step chains, the worst-case class across the chain governs the gate (Panel 2). Source: OWASP AISVS v1.0 (C9.2.3, C9.2.4, C9.2.10).*
+## What it argues, in one line
 
----
+When complete guardrails are provably impossible and detection carries latency, irreversible actions cannot be made safe by detection alone; they require authority established before execution, on a trusted classification the agent does not supply and a gate the agent does not control. Reversible actions can rest on detection; irreversible ones cannot.
 
-## What this is
+## Keywords
 
-A practitioner reference for **what an AI agent is allowed to do without a human in the loop**, structured on the axis of **reversibility** rather than risk. Covers the four-class reversibility taxonomy, manifest-declared classification, the worst-case chain rule, and gate decisions per class. Anchored to OWASP AISVS C9.2.3, C9.2.4, and C9.2.10 (shipped in v1.0).
-
-## What this is not
-
-- Not a competing standard. The architectural anchors live in OWASP AISVS v1.0 C9.2.3, C9.2.4, and C9.2.10, with C9.5 Agent Authorization, Delegation, and Continuous Enforcement (C9.5.3 enforces decisions outside the model) as the enforcement-boundary companion. This document references them.
-- Not a vendor product specification. The framework is vendor-neutral by design.
-- Not a substitute for the chain-of-custody discipline that DFIR teams already practice. It is the same idea, applied one layer up.
-
-## Who this is for
-
-- **Standards-track contributors** working on agentic AI authorization (OWASP, CSA, IETF, CoSAI)
-- **DFIR practitioners** evaluating AI-augmented triage workflows
-- **SOC architects** designing AI-driven detection and response
-- **CISOs** evaluating agentic AI deployment risk
-- **Researchers** working on agent governance, runtime enforcement, or authorization
-
-## How to read this
-
-| If you want | Read |
-|---|---|
-| The argument in 5 minutes | Executive Summary + Figure 1 |
-| The taxonomy in 15 minutes | Part II (Chapters 3–6) |
-| The standards-track anchor | Part III (Chapters 7–9) |
-| The DFIR application | Part IV (Chapters 10–12) |
-| Implementation guidance | Part V (Chapters 13–15) |
-| Full read | All 18 chapters, ~25-30 pages |
+agentic AI security · action-class authority · reversibility-graded authority · guardrail impossibility · deterministic gate · worst-case chain rule · OWASP AISVS · agent verification · capability-based security
 
 ## How to cite
 
-Plain text:
-> Agnihotri, Mayur. (2026). *Action-Class Authority for AI Agents: A Verification-Side Reference.* Version 1.0.
-
-BibTeX:
-```bibtex
-@misc{agnihotri2026actionclass,
-  author       = {Agnihotri, Mayur},
-  title        = {Action-Class Authority for AI Agents: A Verification-Side Reference},
-  year         = {2026},
-  month        = {June},
-  version      = {1.0},
-  howpublished = {Whitepaper, \url{https://github.com/Mayur021/action-class-authority}}
-}
 ```
+Mayur Agnihotri, "Action-Class Authority: Why the Impossibility of Complete Guardrails
+Forces a Reversibility-Graded Verification Layer for Agentic AI," preprint, 2026.
+```
+
+A DOI will be added here once the repository is archived via Zenodo. See `CITATION.cff`.
 
 ## License
 
-Creative Commons Attribution 4.0 International (CC BY 4.0). See [LICENSE](LICENSE).
-
-## Versions
-
-| Version | Date | Notes |
-|---|---|---|
-| 1.0 | 2026-06-09 | Initial release |
-| 1.0 (in-place errata) | 2026-06-24 | AISVS citations aligned to the released v1.0: reversibility controls cited as C9.2.3 / C9.2.4 / C9.2.10 (Orchestration and Agentic Security chapter), approval binding as C9.2.2 / C9.2.8, enforcement boundary as C9.5 (C9.5.3). Manifest-declaration, the independent blast-radius axis, and the fail-closed default are marked as the author's extensions, not shipped controls. |
-
-## Contributing
-
-Errata, corrections, or technical objections welcome via:
-- GitHub issues (when this repo is published)
-- LinkedIn: linkedin.com/in/mayur-agnihotri
-
-Joint contributions (e.g., adjacent schemas) are subject to prior agreement with the relevant co-authors. The chain-level audit schema referenced in Chapter 8 is joint peer-review work with Mallikarjunarao Sunke under CSA IAM Working Group review and is referenced here with permission.
-
-## Related Work
-
-- **OWASP AISVS** — github.com/OWASP/AISVS — verification standards for AI security
-- **CSA NHI Working Group** — Defining Non-Human Identity paper (under peer review at IAM WG)
-- **PieterKas/agent2agent-auth-framework** — IETF-track agent-to-agent authorization protocol
-- **SANS AI Security Maturity Model** — Chris Cochran, SANS Institute
-- **CoSAI WS4** — Secure Design Agentic Systems Working Group
-- **AARM (CSA)** — Autonomous Action Runtime Management Working Group
+Text and figures: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0). See [`LICENSE`](LICENSE).
