@@ -1,0 +1,26 @@
+{
+  "title": "Action-Class Authority: Why the Impossibility of Complete Guardrails Forces a Reversibility-Graded Verification Layer for Agentic AI",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "description": "Production agentic AI systems fail at one architectural seam: a prompt-injected, memory-poisoned, or supply-chain-compromised agent retains valid credentials and reasons over its own action authority. Because complete guardrails are provably impossible and detection carries latency, irreversible actions cannot be made safe by detection alone and require authority established before execution, on a trusted, non-agent-supplied reversibility classification enforced at a deterministic gate, with multi-step chains governed by the worst-case reversibility class present anywhere in the chain. The paper documents the OWASP AISVS v1.0 controls (C9.2.3, C9.2.4, C9.2.10) that operationalize the pattern, analyzes three canonical 2026 incidents, and positions it against the 2026 literature on agent runtime enforcement and containment. A version of the core pattern documentation is under review at IEEE Security & Privacy magazine.",
+  "creators": [
+    {
+      "name": "Agnihotri, Mayur",
+      "affiliation": "StraightArc Technologies Pvt. Ltd.",
+      "orcid": "0009-0007-0137-3780"
+    }
+  ],
+  "keywords": [
+    "agentic AI security",
+    "action-class authority",
+    "reversibility-graded authority",
+    "guardrail impossibility",
+    "deterministic gate",
+    "worst-case chain rule",
+    "OWASP AISVS",
+    "agent verification",
+    "capability-based security"
+  ],
+  "license": "cc-by-nc-nd-4.0",
+  "access_right": "open"
+}
